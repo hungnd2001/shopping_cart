@@ -1,20 +1,46 @@
-import "reflect-metadata"
-import { ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
-import { Orders } from "./orders"
-import { Products } from "./products"
+import "reflect-metadata";
+import {
+  Entity,
+  ManyToOne,
+  OneToOne,
+  Column,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from "typeorm";
+import { Orders } from "./orders";
+import { Products } from "./products";
 
+@Entity()
 class OrderDetails {
+  @PrimaryColumn({
+    name: "order_id",
+    type: "uuid",
+  })
+  orderId: string;
 
-    @ManyToOne(() => Orders, (order) => order.id)
-    @PrimaryColumn()
-    orderId: string;
+  @PrimaryColumn({
+    name: "product_id",
+    type: "uuid",
+  })
+  productId: string;
 
-    @PrimaryColumn()
-    @ManyToOne(() => Products, (product) => product.id)
-    productId: string;
+  @ManyToOne(() => Orders, (order) => order.orderdetails)
+  @JoinColumn({
+    name: "order_id",
+    referencedColumnName: "id",
+  })
+  order: Orders;
 
-    quantity: number;
+  @ManyToOne(() => Products, (product) => product.orderdetails)
+  @JoinColumn({
+    name: "product_id",
+    referencedColumnName: "id",
+  })
+  product: Products;
 
+  @Column()
+  quantity: number;
 }
 
-export { OrderDetails }
+export { OrderDetails };

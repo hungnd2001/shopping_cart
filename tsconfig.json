@@ -1,18 +1,17 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "noImplicitAny": true,
-        "removeComments": true,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "experimentalDecorators": true,
-        "moduleResolution": "node",
-        "lib": [
-            "ES2015",
-            "ES2016"
-        ],
-        "target": "ES2017",
-        "emitDecoratorMetadata": true,
-        "noEmit": true
-    },
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "lib": ["ES2015", "ES2016"],
+    "target": "ES2017",
+    "emitDecoratorMetadata": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true // if your TS is lower than 4.0
+  }
 }

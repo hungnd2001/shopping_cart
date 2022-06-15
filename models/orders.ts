@@ -1,18 +1,39 @@
 import "reflect-metadata";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm"
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
 import { OrderDetails } from "./order_details";
-import { Users } from "./users"
+import { Payment } from "./payment";
+import { Users } from "./users";
 
 @Entity()
 class Orders {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @ManyToOne(() => Users, (user) => user.id)
-    userId: Users;
+  @Column({
+    name: "user_id",
+  })
+  userId: string;
 
-    @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.orderId)
-    orderdetails: OrderDetails[]
+  @OneToMany(() => OrderDetails, (orderDetails) => orderDetails.order)
+  orderdetails: OrderDetails[];
+
+  @ManyToOne(() => Users, (user) => user.orders)
+  @JoinColumn({
+    name: "user_id",
+    referencedColumnName: "id",
+  })
+  user: Users;
+
+  @OneToOne(() => Payment, (payment) => payment.order)
+  payments: Payment;
 }
 
-export { Orders }
+export { Orders };
